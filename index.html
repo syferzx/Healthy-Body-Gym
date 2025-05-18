@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HealthyBody Gym</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/png" href="img/logo192.png">
+  <meta name="theme-color" content="#000000">
+
+  <style>
+ body {
+  font-family: Arial, sans-serif;
+  padding: 10px;
+  max-width: 600px;
+  margin: auto;
+  background-color: #121212;
+  color: #ffffff;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 20px;
+  padding: 15px 0;
+}
+
+.header img {
+  width: 150px;
+  border-radius: 50%;
+  box-shadow: 0 0 12px rgba(0, 255, 157, 0.5);
+  margin-bottom: 10px;
+}
+
+.header h1 {
+  font-size: 28px;
+  color: #00ff9d;
+  margin: 0;
+}
+
+.menu-dias {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.menu-dias p {
+  margin: 10px 0;
+}
+
+.menu-dias a span {
+  display: inline-block;
+  background-color: #00ff9d;
+  color: black;
+  width: 35px;
+  height: 35px;
+  line-height: 35px;
+  margin: 5px;
+  border-radius: 8px;
+  font-weight: bold;
+  text-decoration: none;
+  transition: background-color 0.3s;
+}
+
+.menu-dias a:hover span {
+  background-color: #00cc7a;
+}
+
+.dia-titulo {
+  background-color: #00ff9d;
+  color: #000;
+  padding: 10px;
+  border-radius: 8px;
+  font-size: 16px;
+  text-align: center;
+  margin-top: 80px;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+h2 {
+  background-color: #1f1f1f;
+  color: #00ff9d;
+  padding: 10px;
+  border-radius: 8px;
+  font-size: 16px;
+  margin-top: 25px;
+}
+
+.ejercicio {
+  border: 2px solid #00ff9d;
+  border-radius: 10px;
+  padding: 12px;
+  margin-bottom: 12px;
+  background-color: #1c1c1c;
+  backdrop-filter: blur(2px);
+  transition: box-shadow 0.3s ease;
+}
+
+.ejercicio:hover {
+  box-shadow: 0 0 8px rgba(0, 255, 157, 0.3);
+}
+
+.titulo {
+  font-weight: bold;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #ffffff;
+  
+  border-radius: 6px;
+  padding: 5px 10px;
+}
+
+.series-reps {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  font-size: 14px;
+  color: #bbbbbb;
+  line-height: 1.2;
+}
+
+.series-reps span {
+  font-weight: bold;
+}
+
+.descanso {
+  font-size: 14px;
+  color: #aaaaaa;
+  font-weight: bold;
+  text-align: right;
+  margin-top: 4px;
+}
+
+.btn {
+  margin-top: 8px;
+  padding: 6px 12px;
+  font-size: 14px;
+  cursor: pointer;
+  background-color: #00ff9d;
+  color: #000;
+  border: none;
+  border-radius: 6px;
+  transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.btn:hover {
+  background-color: #00cc7a;
+  box-shadow: 0 0 8px #00ff9d;
+}
+
+.final {
+  text-align: center;
+  font-size: 14px;
+  margin-top: 20px;
+  color: #ccc;
+}
+
+.fixed-top-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #00ff9d;
+  color: black;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+  z-index: 1000;
+}
+
+.fixed-top-button:hover {
+  background-color: #00cc7a;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1001;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.85);
+  backdrop-filter: blur(3px);
+}
+
+.modal-content {
+  position: relative;
+  background-color: #000;
+  margin: 12% auto;
+  padding: 0;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 0 20px rgba(0,255,157,0.3);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.modal-content video,
+.modal-content img {
+  width: 100%;
+  height: auto;
+  border-radius: 0;
+  max-height: 80vh;
+  object-fit: contain;
+  background: black;
+}
+
+.close {
+  position: absolute;
+  top: 8px;
+  right: 12px;
+  font-size: 32px;
+  color: #00ff9d;
+  cursor: pointer;
+  font-weight: bold;
+  z-index: 1002;
+  background: rgba(0,0,0,0.8);
+  padding: 6px 12px;
+  border-radius: 50%;
+  transition: background 0.2s;
+}
+
+.close:hover {
+  background: rgba(0,255,157,0.2);
+}
+
+.intro-text {
+  background-color: transparent;
+  border-left: 4px solid #00ff9d;
+  padding: 10px 16px;
+  margin-bottom: 20px;
+  color: #ccc;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.intro-text strong {
+  color: #ffffff;
+}
+
+.separador-dia {
+  border: none;
+  height: 2px;
+  margin: 40px 0;
+  background: linear-gradient(to right, #00ff9d, transparent);
+}
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.ejercicio {
+  animation: fadeInUp 0.6s ease both;
+}
+
+  </style>
+</head>
+<body>
+  <a id="top"></a>
+<div class="header">
+  <img src="img/logo.jpg" alt="Logo" class="logo">
+  <h1>Rutina de Inducción</h1>
+</div>
+
+<div class="intro-text">
+  <p><strong>OBJETIVO:</strong> Adaptación del estímulo progresivamente.</p>
+  <p><strong>CALENTAMIENTO GENERAL:</strong> cardiovascular 15 minutos.</p>
+</div>
+
+
+  <div class="menu-dias">
+    <p><strong>Seleccionar Día</strong></p>
+    <a href="#dia1"><span>1</span></a>
+    <a href="#dia2"><span>2</span></a>
+    <a href="#dia3"><span>3</span></a>
+    <a href="#dia4"><span>4</span></a>
+    <a href="#dia5"><span>5</span></a>
+  </div>
+
+  <!-- Día 1 -->
+  <div id="dia1" class="dia-titulo">Día 1</div>
+  <h2>Espalda (Dorsal)</h2>
+  <div class="ejercicio"><div class="titulo">Jalón Polea Alta<div class="series-reps"><span>Series: 4</span><span>Repeticiones: 10</span></div></div><div class="descanso">Descanso: 1 a 2 minutos entre series</div><button class="btn" onclick="openModal('video1')">Ver ejercicio</button></div>
+  <div class="ejercicio"><div class="titulo">Remo V Polea Baja<div class="series-reps"><span>Series: 4</span><span>Repeticiones: 10</span></div></div><div class="descanso">Descanso: 1 a 2 minutos entre series</div><button class="btn" onclick="openModal('video2')">Ver ejercicio</button></div>
+  <div class="ejercicio"><div class="titulo">Remo Máquina Guiada<div class="series-reps"><span>Series: 4</span><span>Repeticiones: 10</span></div></div><div class="descanso">Descanso: 1 a 2 minutos entre series</div><button class="btn" onclick="openModal('video3')">Ver ejercicio</button></div>
+
+  <h2>Cuádriceps</h2>
+  <div class="ejercicio"><div class="titulo">Extensión de Rodilla<div class="series-reps"><span>Series: 4</span><span>Repeticiones: 10</span></div></div><div class="descanso">Descanso: 1 a 2 minutos entre series</div><button class="btn" onclick="openModal('video4')">Ver ejercicio</button></div>
+  <div class="ejercicio"><div class="titulo">Prensa 45°<div class="series-reps"><span>Series: 4</span><span>Repeticiones: 10</span></div></div><div class="descanso">Descanso: 1 a 2 minutos entre series</div><button class="btn" onclick="openModal('video5')">Ver ejercicio</button></div>
+  <div class="ejercicio"><div class="titulo">Prensa Unilateral<div class="series-reps"><span>Series: 4</span><span>Repeticiones: 10</span></div></div><div class="descanso">Descanso: 1 a 2 minutos entre series</div><button class="btn" onclick="openModal('video6')">Ver ejercicio</button></div>
+
+  <h2>Abdomen</h2>
+  <div class="ejercicio"><div class="titulo">Plancha Isométrica<div class="series-reps"><span>Series: 4</span><span>Tiempo: 30 seg</span></div></div><div class="descanso">Descanso: 1 a 2 minutos entre series</div><button class="btn" onclick="openModal('video7')">Ver ejercicio</button></div>
+
+  <div class="final">Finalizamos con cardiovascular: 15 minutos.</div>
+
+<hr class="separador-dia">
+
+  <!-- Día 2 -->
+  <div id="dia2" class="dia-titulo">Día 2</div>
+  <h2>Hombros</h2>
+  <div class="ejercicio"><div class="titulo">Press Máquina Guiada<div class="series-reps"><span>Series: 4</span><span>Repeticiones: 10</span></div></div><div class="descanso">Descanso: 1 a 2 minutos entre series</div><button class="btn" onclick="openModal('video8')">Ver ejercicio</button></div>
+  <div class="ejercicio"><div class="titulo">Elevaciones Laterales con Mancuernas o Discos<div class="series-reps"><span>Series: 4</span><span>Repeticiones: 10</span></div></div><div class="descanso">Descanso: 1 a 2 minutos entre series</div><button class="btn" onclick="openModal('video9')">Ver ejercicio</button></div>
+  <div class="ejercicio"><div class="titulo">Elevación Frontal con Mancuernas o Discos<div class="series-reps"><span>Series: 4</span><span>Repeticiones: 10</span></div></div><div class="descanso">Descanso: 1 a 2 minutos entre series</div><button class="btn" onclick="openModal('video10')">Ver ejercicio</button></div>
+
+  <h2>Bíceps</h2>
+  <div class="ejercicio"><div class="titulo">Curl Mancuerna<div class="series-reps"><span>Series: 4</span><span>Repeticiones: 10</span></div></div><div class="descanso">Descanso: 1 a 2 minutos entre series</div><button class="btn" onclick="openModal('video11')">Ver ejercicio</button></div>
+  <div class="ejercicio"><div class="titulo">Curl Scott con Barra Libre<div class="series-reps"><span>Series: 4</span><span>Repeticiones: 10</span></div></div><div class="descanso">Descanso: 1 a 2 minutos entre series</div><button class="btn" onclick="openModal('video12')">Ver ejercicio</button></div>
+  <div class="ejercicio"><div class="titulo">Curl Polea Baja con Barra<div class="series-reps"><span>Series: 4</span><span>Repeticiones: 10</span></div></div><div class="descanso">Descanso: 1 a 2 minutos entre series</div><button class="btn" onclick="openModal('video13')">Ver ejercicio</button></div>
+
+  <div class="final">Finalizamos con cardiovascular: 15 minutos.</div>
+
+<hr class="separador-dia">
+
+  <!-- Día 3 -->
+  <div id="dia3" class="dia-titulo">Día 3</div>
+  <h2>Femoral</h2>
+  <div class="ejercicio"><div class="titulo">Camilla Femoral<div class="series-reps"><span>Series: 4</span><span>Repeticiones: 10</span></div></div><div class="descanso">Descanso: 1 a 2 minutos entre series</div><button class="btn" onclick="openModal('video14')">Ver ejercicio</button></div>
+  <div class="ejercicio"><div class="titulo">Silla Femoral<div class="series-reps"><span>Series: 4</span><span>Repeticiones: 10</span></div></div><div class="descanso">Descanso: 1 a 2 minutos entre series</div><button class="btn" onclick="openModal('video15')">Ver ejercicio</button></div>
+  <div class="ejercicio"><div class="titulo">Peso Muerto con Barra 15kg<div class="series-reps"><span>Series: 4</span><span>Repeticiones: 10</span></div></div><div class="descanso">Descanso: 1 a 2 minutos entre series</div><button class="btn" onclick="openModal('video16')">Ver ejercicio</button></div>
+
+  <h2>Abductor</h2>
+  <div class="ejercicio"><div class="titulo">Máquina Guiada<div class="series-reps"><span>Series: 4</span><span>Repeticiones: 10</span></div></div><div class="descanso">Descanso: 1 a 2 minutos entre series</div><button class="btn" onclick="openModal('video17')">Ver ejercicio</button></div>
+
+  <h2>Abdomen</h2>
+  <div class="ejercicio"><div class="titulo">Plancha Isométrica<div class="series-reps"><span>Series: 4</span><span>Tiempo: 30 seg</span></div></div><div class="descanso">Descanso: 1 a 2 minutos entre series</div><button class="btn" onclick="openModal('video18')">Ver ejercicio</button></div>
+
+  <div class="final">Finalizamos con cardiovascular: 15 minutos.</div>
+
+<hr class="separador-dia">
+
+  <!-- Día 4 -->
+  <div id="dia4" class="dia-titulo">Día 4</div>
+  <h2>Glúteo</h2>
+  <div class="ejercicio"><div class="titulo">Sentadilla Zumo Hack<div class="series-reps"><span>Series: 4</span><span>Repeticiones: 10</span></div></div><div class="descanso">Descanso: 1 a 2 minutos entre series</div><button class="btn" onclick="openModal('video19')">Ver ejercicio</button></div>
+  <div class="ejercicio"><div class="titulo">Elevación Cadera, Máquina Guiada<div class="series-reps"><span>Series: 4</span><span>Repeticiones: 10</span></div></div><div class="descanso">Descanso: 1 a 2 minutos entre series</div><button class="btn" onclick="openModal('video20')">Ver ejercicio</button></div>
+  <div class="ejercicio"><div class="titulo">Sentadilla Zumo con Mancuerna<div class="series-reps"><span>Series: 4</span><span>Repeticiones: 10</span></div></div><div class="descanso">Descanso: 1 a 2 minutos entre series</div><button class="btn" onclick="openModal('video21')">Ver ejercicio</button></div>
+
+  <h2>Tríceps</h2>
+  <div class="ejercicio"><div class="titulo">Extensión Codo Polea Alta con Cuerda<div class="series-reps"><span>Series: 4</span><span>Repeticiones: 10</span></div></div><div class="descanso">Descanso: 1 a 2 minutos entre series</div><button class="btn" onclick="openModal('video22')">Ver ejercicio</button></div>
+  <div class="ejercicio"><div class="titulo">Extensión Codo Polea Alta con Barra<div class="series-reps"><span>Series: 4</span><span>Repeticiones: 10</span></div></div><div class="descanso">Descanso: 1 a 2 minutos entre series</div><button class="btn" onclick="openModal('video23')">Ver ejercicio</button></div>
+  <div class="ejercicio"><div class="titulo">Press Francés Bilateral en Banco<div class="series-reps"><span>Series: 4</span><span>Repeticiones: 10</span></div></div><div class="descanso">Descanso: 1 a 2 minutos entre series</div><button class="btn" onclick="openModal('video24')">Ver ejercicio</button></div>
+
+  <div class="final">Finalizamos con cardiovascular: 15 minutos.</div>
+
+<hr class="separador-dia">
+
+  <!-- Día 5 -->
+  <div id="dia5" class="dia-titulo">Día 5</div>
+  <h2>Pectoral</h2>
+  <div class="ejercicio"><div class="titulo">Press Máquina Guiada Frontal<div class="series-reps"><span>Series: 4</span><span>Repeticiones: 10</span></div></div><div class="descanso">Descanso: 1 a 2 minutos entre series</div><button class="btn" onclick="openModal('video25')">Ver ejercicio</button></div>
+  <div class="ejercicio"><div class="titulo">Press Máquina Guiada Inclinada<div class="series-reps"><span>Series: 4</span><span>Repeticiones: 10</span></div></div><div class="descanso">Descanso: 1 a 2 minutos entre series</div><button class="btn" onclick="openModal('video26')">Ver ejercicio</button></div>
+  <div class="ejercicio"><div class="titulo">Press Máquina Guiada Unilateral Frontal (ambos a la vez)<div class="series-reps"><span>Series: 4</span><span>Repeticiones: 10</span></div></div><div class="descanso">Descanso: 1 a 2 minutos entre series</div><button class="btn" onclick="openModal('video27')">Ver ejercicio</button></div>
+
+  <h2>Abdomen</h2>
+  <div class="ejercicio"><div class="titulo">Plancha Isométrica<div class="series-reps"><span>Series: 4</span><span>Tiempo: 30 seg</span></div></div><div class="descanso">Descanso: 1 a 2 minutos entre series</div><button class="btn" onclick="openModal('video28')">Ver ejercicio</button></div>
+
+  <div class="final">Finalizamos con cardiovascular: 15 minutos.</div>
+
+  <button class="fixed-top-button" onclick="window.scrollTo({ top: 0, behavior: 'smooth' })">↑</button>
+
+<!-- Día 1 -->
+<div id="video1" class="modal"><div class="modal-content"><span class="close" onclick="closeModal('video1')">&times;</span><video src="videos/jalon polea alta dorsal.mp4" autoplay muted controls></video></div></div>
+<div id="video2" class="modal"><div class="modal-content"><span class="close" onclick="closeModal('video2')">&times;</span><video src="videos/Remo en polea baja.mp4" autoplay muted controls></video></div></div>
+<div id="video3" class="modal"><div class="modal-content"><span class="close" onclick="closeModal('video3')">&times;</span><video src="videos/remo en máquina guiada.mp4" autoplay muted controls></video></div></div>
+<div id="video4" class="modal"><div class="modal-content"><span class="close" onclick="closeModal('video4')">&times;</span><video src="videos/extensión de rodillas.mp4" autoplay muted controls></video></div></div>
+<div id="video5" class="modal"><div class="modal-content"><span class="close" onclick="closeModal('video5')">&times;</span><video src="videos/prensa 45.mp4" autoplay muted controls></video></div></div>
+<div id="video6" class="modal"><div class="modal-content"><span class="close" onclick="closeModal('video6')">&times;</span><video src="videos/prensa unilateral.mp4" autoplay muted controls></video></div></div>
+<div id="video7" class="modal"><div class="modal-content"><span class="close" onclick="closeModal('video7')">&times;</span><video src="videos/plancha isometrica.mp4" autoplay muted controls></video></div></div>
+
+<!-- Día 2 -->
+<div id="video8" class="modal"><div class="modal-content"><span class="close" onclick="closeModal('video8')">&times;</span><video src="videos/press máquina guiada.mp4" autoplay muted controls></video></div></div>
+<div id="video9" class="modal"><div class="modal-content"><span class="close" onclick="closeModal('video9')">&times;</span><video src="videos/elevaciones laterales.mp4" autoplay muted controls></video></div></div>
+<div id="video10" class="modal"><div class="modal-content"><span class="close" onclick="closeModal('video10')">&times;</span><video src="videos/elevacion frontal.mp4" autoplay muted controls></video></div></div>
+<div id="video11" class="modal"><div class="modal-content"><span class="close" onclick="closeModal('video11')">&times;</span><video src="videos/curl mancuerna.mp4" autoplay muted controls></video></div></div>
+<div id="video12" class="modal"><div class="modal-content"><span class="close" onclick="closeModal('video12')">&times;</span><video src="videos/curl scott barra.mp4" autoplay muted controls></video></div></div>
+<div id="video13" class="modal"><div class="modal-content"><span class="close" onclick="closeModal('video13')">&times;</span><video src="videos/curl polea baja.mp4" autoplay muted controls></video></div></div>
+
+<!-- Día 3 -->
+<div id="video14" class="modal"><div class="modal-content"><span class="close" onclick="closeModal('video14')">&times;</span><video src="videos/camilla_femoral.mp4" autoplay muted controls></video></div></div>
+<div id="video15" class="modal"><div class="modal-content"><span class="close" onclick="closeModal('video15')">&times;</span><video src="videos/silla_femoral.mp4" autoplay muted controls></video></div></div>
+<div id="video16" class="modal"><div class="modal-content"><span class="close" onclick="closeModal('video16')">&times;</span><video src="videos/peso_muerto_barra.mp4" autoplay muted controls></video></div></div>
+<div id="video17" class="modal"><div class="modal-content"><span class="close" onclick="closeModal('video17')">&times;</span><video src="videos/abductor_maquina.mp4" autoplay muted controls></video></div></div>
+<div id="video18" class="modal"><div class="modal-content"><span class="close" onclick="closeModal('video18')">&times;</span><video src="videos/plancha_isometrica.mp4" autoplay muted controls></video></div></div>
+
+<!-- Día 4 -->
+<div id="video19" class="modal"><div class="modal-content"><span class="close" onclick="closeModal('video19')">&times;</span><video src="videos/sentadilla_zumo_hack.mp4" autoplay muted controls></video></div></div>
+<div id="video20" class="modal"><div class="modal-content"><span class="close" onclick="closeModal('video20')">&times;</span><video src="videos/elevacion_cadera.mp4" autoplay muted controls></video></div></div>
+<div id="video21" class="modal"><div class="modal-content"><span class="close" onclick="closeModal('video21')">&times;</span><video src="videos/sentadilla_zumo_mancuerna.mp4" autoplay muted controls></video></div></div>
+<div id="video22" class="modal"><div class="modal-content"><span class="close" onclick="closeModal('video22')">&times;</span><video src="videos/extension_codo_cuerda.mp4" autoplay muted controls></video></div></div>
+<div id="video23" class="modal"><div class="modal-content"><span class="close" onclick="closeModal('video23')">&times;</span><video src="videos/extension_codo_barra.mp4" autoplay muted controls></video></div></div>
+<div id="video24" class="modal"><div class="modal-content"><span class="close" onclick="closeModal('video24')">&times;</span><video src="videos/press_frances_banco.mp4" autoplay muted controls></video></div></div>
+
+<!-- Día 5 -->
+<div id="video25" class="modal"><div class="modal-content"><span class="close" onclick="closeModal('video25')">&times;</span><video src="videos/press_maquina_frontal.mp4" autoplay muted controls></video></div></div>
+<div id="video26" class="modal"><div class="modal-content"><span class="close" onclick="closeModal('video26')">&times;</span><video src="videos/press_maquina_inclinada.mp4" autoplay muted controls></video></div></div>
+<div id="video27" class="modal"><div class="modal-content"><span class="close" onclick="closeModal('video27')">&times;</span><video src="videos/press_maquina_unilateral.mp4" autoplay muted controls></video></div></div>
+<div id="video28" class="modal"><div class="modal-content"><span class="close" onclick="closeModal('video28')">&times;</span><video src="videos/plancha_isometrica.mp4" autoplay muted controls></video></div></div>
+
+<script>
+  function openModal(id) {
+    const modal = document.getElementById(id);
+    modal.style.display = 'block';
+
+    const video = modal.querySelector('video');
+    if (video) {
+      video.currentTime = 0;
+      video.play().catch(err => {
+        console.log("Autoplay bloqueado:", err);
+      });
+    }
+  }
+
+  function closeModal(id) {
+    const modal = document.getElementById(id);
+    modal.style.display = 'none';
+
+    const video = modal.querySelector('video');
+    if (video) {
+      video.pause();
+      video.currentTime = 0; // reiniciar
+    }
+  }
+</script>
+
+
+</body>
+</html>
